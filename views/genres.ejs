@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Genres</title>
+  </head>
+  <body>
+    <h1>Genres page</h1>
+    <ul>
+        <% genres.forEach(genre => { %>
+            <li>
+                <p>Genre name: <%= genre.genre_name %></p>
+            </li>
+        <% });  %>  
+    </ul>
+    <a href="/">Go back home</a>
+  </body>
+</html>

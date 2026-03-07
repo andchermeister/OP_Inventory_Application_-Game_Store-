@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games page</title>
+  </head>
+  <body>
+    <h1>Games page</h1>
+    <ul>
+        <% games.forEach(game => { %>
+        <li>
+          <p>Title: <%= game.title %></p>
+          <p>Genre: <%= game_genres[game.id - 1].genre_name %></p>
+          <p>Developer: <%= game_developers[game.id - 1].company_name %></p>
+          <p>Release date: <%= new Date(game.release_date).toLocaleDateString() %></p>
+          <p>Rating: <%= game.rating %></p>
+        </li>
+        <% });  %>  
+    </ul>
+    <a href="/">Go back home</a>
+  </body>
+</html>

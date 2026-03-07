@@ -8,9 +8,11 @@
   <body>
     <h1>Developers page</h1>
     <ul>
-        <% developers.forEach(developer => { %>
+        <% developers.forEach(developers => { %>
             <li>
-                <p>Developer name: <%= developer.company_name %></p>
+                <p>Company name: <%= developers.company_name %></p>
+                <p>Country: <%= developers.country %></p>
+                <p>Year founded: <%= developers.year_founded %></p>
             </li>
         <% });  %>  
     </ul>
