@@ -6,11 +6,8 @@ async function renderIndex(req, res) {
 
 async function renderGames(req, res) {
   const games = await db.getAllGames();
-  const game_developers = await db.getDeveloperForGame();
-  console.log("Game developers", game_developers);
-  const game_genres = await db.getGenreForGame();
-  console.log("Game genres:", game_genres);
-  res.render("games", { games, game_developers, game_genres });
+  console.log(games);
+  res.render("games", { games });
 }
 
 async function renderDevelopers(req, res) {
@@ -23,4 +20,24 @@ async function renderGenres(req, res) {
   res.render("genres", { genres });
 }
 
-module.exports = { renderIndex, renderGames, renderDevelopers, renderGenres };
+async function renderNewGameForm(req, res) {
+  const genres = await db.getAllGenres();
+  const developers = await db.getAllDevelopers();
+  res.render("newGameForm", { genres, developers });
+}
+
+async function addNewGame(req, res) {
+  const { title, genreId, developerId, release_date, rating } = req.body;
+  console.log(title, genreId, developerId, release_date, rating);
+  await db.addNewGame(title, genreId, developerId, release_date, rating);
+  res.redirect("/games");
+}
+
+module.exports = {
+  renderIndex,
+  renderGames,
+  renderDevelopers,
+  renderGenres,
+  renderNewGameForm,
+  addNewGame,
+};

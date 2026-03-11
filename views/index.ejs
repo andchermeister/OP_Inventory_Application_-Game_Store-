@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homepage</title>
-  </head>
+  <%- include("partials/head") %>
   <body>
     <h1>Home page</h1>
-    <a href="/games">Games page</a>
-    <a href="/developers">Developers page</a>
-    <a href="/genres">Genres page</a>
+    <ul>
+      <li>
+        <a href="/games"><button>Games page</button></a>
+      </li>
+      <li>
+        <a href="/developers"><button>Developers page</button></a>
+      </li>
+      <li>
+        <a href="/genres"><button>Genres page</button></a>
+      </li>
+    </ul>
   </body>
 </html>
