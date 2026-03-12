@@ -8,5 +8,6 @@ gameStoreRouter.get("/developers", gameStoreController.renderDevelopers);
 gameStoreRouter.get("/genres", gameStoreController.renderGenres);
 gameStoreRouter.get("/newgame", gameStoreController.renderNewGameForm);
 gameStoreRouter.post("/newgame", gameStoreController.addNewGame);
+gameStoreRouter.get("/games/:gameId", gameStoreController.getGameById);
 
 module.exports = gameStoreRouter;

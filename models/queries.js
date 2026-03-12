@@ -2,7 +2,7 @@ const pool = require("./pool");
 
 async function getAllGames() {
   const { rows } = await pool.query(`
-                                    SELECT title, genre_name, company_name, release_date, rating
+                                    SELECT games.id, title, genre_name, company_name, release_date, rating
                                     FROM games
                                     JOIN games_genres ON games.id = games_genres.game_id
                                     JOIN genres ON games_genres.genre_id = genres.id
@@ -56,6 +56,16 @@ async function addNewGame(title, genreId, developerId, release_date, rating) {
   );
 }
 
+async function getGameById(gameId) {
+  const { rows } = await pool.query(
+    `
+    SELECT * FROM games WHERE id = $1
+    `,
+    [gameId],
+  );
+  return rows[0];
+}
+
 module.exports = {
   getAllGames,
   getDeveloperForGame,
@@ -63,4 +73,5 @@ module.exports = {
   getAllDevelopers,
   getAllGenres,
   addNewGame,
+  getGameById,
 };
