@@ -43,7 +43,6 @@ async function addNewGame(title, genreId, developerId, release_date, rating) {
   );
 
   const gameId = rows[0].id;
-  console.log("Inserted game with ID:", gameId);
 
   await pool.query(
     "INSERT INTO games_genres (game_id, genre_id) VALUES ($1, $2)",
@@ -66,6 +65,10 @@ async function getGameById(gameId) {
   return rows[0];
 }
 
+async function deleteGameById(gameId) {
+  await pool.query("DELETE FROM games WHERE id = $1", [gameId]);
+}
+
 module.exports = {
   getAllGames,
   getDeveloperForGame,
@@ -74,4 +77,5 @@ module.exports = {
   getAllGenres,
   addNewGame,
   getGameById,
+  deleteGameById,
 };

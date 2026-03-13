@@ -5,15 +5,7 @@
     <h1>Games page</h1>
     <ul class="game-list-item">
         <% games.forEach(game => { %>
-        <li>
-          <p>Title: <%= game.title %></p>
-          <p>Genre: <%= game.genre_name %></p>
-          <p>Developer: <%= game.company_name %></p>
-          <p>Release date: <%= new Date(game.release_date).toLocaleDateString() %></p>
-          <p>Rating: <%= game.rating %></p>
-          <a href="/games/<%= game.id %>"><button>Open</button></a>
-          <button>Delete game</button>
-        </li>
+          <%- include("game", {game}) %>
         <% });  %>  
     </ul>
     <a href="/newgame"><button>Add new game</button></a>

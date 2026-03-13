@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <%- include("partials/head") %>
-  <body>
-    <p>Title: <%= game.title %></p>
-    <p>Genre: <%= game.genre_name %></p>
-    <p>Developer: <%= game.company_name %></p>
-    <p>Release date: <%= new Date(game.release_date).toLocaleDateString() %></p>
-    <p>Rating: <%= game.rating %></p>
-    <button>Delete game</button>
-    <a href="/"><button>Go back home</button></a>
-  </body>
-</html>
+<li>
+  <p>Title: <%= game.title %></p>
+  <p>Genre: <%= game.genre_name %></p>
+  <p>Developer: <%= game.company_name %></p>
+  <p>Release date: <%= new Date(game.release_date).toLocaleDateString() %></p>
+  <p>Rating: <%= game.rating %></p>
+  <a href="/games/<%= game.id %>"><button>Open</button></a>
+  <form
+    action="/games/<%= game.id %>/delete"
+    method="POST"
+    style="display: inline"
+  >
+    <button type="submit">Delete game</button>
+  </form>
+  <a href="/games"><button>Games</button></a>
+</li>

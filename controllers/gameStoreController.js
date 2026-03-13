@@ -33,9 +33,14 @@ async function addNewGame(req, res) {
 
 async function getGameById(req, res) {
   const { gameId } = req.params;
-  console.log(gameId);
   const game = await db.getGameById(gameId);
   res.render("game", { game });
+}
+
+async function deleteGameById(req, res) {
+  const { gameId } = req.params;
+  await db.deleteGameById(gameId);
+  res.redirect("/games");
 }
 
 module.exports = {
@@ -46,4 +51,5 @@ module.exports = {
   renderNewGameForm,
   addNewGame,
   getGameById,
+  deleteGameById,
 };
