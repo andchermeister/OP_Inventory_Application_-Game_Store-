@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <%- include("partials/head") %>
-  <body>
-    <h1>Developers page</h1>
-    <ul>
-        <% developers.forEach(developers => { %>
-            <li>
-                <p>Company name: <%= developers.company_name %></p>
-                <p>Country: <%= developers.country %></p>
-                <p>Year founded: <%= developers.year_founded %></p>
-            </li>
-        <% });  %>  
-    </ul>
-    <a href="/">Go back home</a>
-  </body>
-</html>
+<li>
+  <p>Company name: <%= developer.company_name %></p>
+  <p>Country: <%= developer.country %></p>
+  <p>Year founded: <%= developer.year_founded %></p>
+  <a href="/developers/<%= developer.id %>"><button>Open</button></a>
+  <form
+    action="/developers/<%= developer.id %>/delete"
+    method="POST"
+    style="display: inline"
+  >
+    <button type="submit">Delete developer</button>
+  </form>
+  <a href="/developers"><button>Developers</button></a>
+</li>

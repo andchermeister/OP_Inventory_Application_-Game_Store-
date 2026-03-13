@@ -5,11 +5,10 @@
     <h1>Developers page</h1>
     <ul>
         <% developers.forEach(developer => { %>
-            <li>
-                <p>Developer name: <%= developer.company_name %></p>
-            </li>
+            <%- include("developer", {developer}) %>
         <% });  %>  
     </ul>
-    <a href="/">Go back home</a>
+    <a href="/newdeveloper"><button>Add new developer</button></a>
+    <a href="/"><button>Go back home</button></a>
   </body>
 </html>

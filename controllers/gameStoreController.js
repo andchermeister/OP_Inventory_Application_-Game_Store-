@@ -43,6 +43,28 @@ async function deleteGameById(req, res) {
   res.redirect("/games");
 }
 
+async function addNewDeveloper(req, res) {
+  const { company_name, country, year_founded } = req.body;
+  await db.addNewDeveloper(company_name, country, year_founded);
+  res.redirect("/developers");
+}
+
+async function renderNewDeveloperForm(req, res) {
+  res.render("newDeveloperForm");
+}
+
+async function getDeveloperById(req, res) {
+  const { developerId } = req.params;
+  const developer = await db.getDeveloperById(developerId);
+  res.render("developer", { developer });
+}
+
+async function deleteDeveloperById(req, res) {
+  const { developerId } = req.params;
+  await db.deleteDeveloperById(developerId);
+  res.redirect("/developers");
+}
+
 module.exports = {
   renderIndex,
   renderGames,
@@ -52,4 +74,8 @@ module.exports = {
   addNewGame,
   getGameById,
   deleteGameById,
+  addNewDeveloper,
+  renderNewDeveloperForm,
+  getDeveloperById,
+  deleteDeveloperById,
 };

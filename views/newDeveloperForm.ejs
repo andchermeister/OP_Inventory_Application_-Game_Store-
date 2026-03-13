@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head") %>
+  <body>
+    <h1>Add a new developer:</h1>
+    <form action="/newdeveloper" method="post">
+      <ul>
+        <li>
+          <label for="company_name">Company name:</label>
+          <input type="text" name="company_name" id="company_name" required />
+        </li>
+        <li>
+          <label for="country">Country:</label>
+          <input type="text" name="country" , id="country" />
+        </li>
+        <li>
+          <label for="year_founded">Year founded:</label>
+          <input type="text" name="year_founded" , id="year_founded" />
+        </li>
+      </ul>
+
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>
