@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partials/head") %>
+  <body>
+    <h1>Add a new genre:</h1>
+    <form action="/genres/newgenre" method="post">
+      <label for="genre_name">Genre name:</label>
+      <input type="text" name="genre_name" id="genre_name" required />
+      <button type="submit">Add</button>
+    </form>
+  </body>
+</html>
