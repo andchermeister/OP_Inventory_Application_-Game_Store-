@@ -48,7 +48,21 @@ async function addNewGame(title, genreId, developerId, release_date, rating) {
 async function getGameById(gameId) {
   const { rows } = await pool.query(
     `
-    SELECT * FROM games WHERE id = $1
+    SELECT
+      games.id,
+      games.title, 
+      genres.id AS genre_id,
+      genres.genre_name,
+      developers.id AS developer_id, 
+      developers.company_name, 
+      games.release_date, 
+      games.rating
+    FROM games
+    JOIN games_genres ON games.id = games_genres.game_id
+    JOIN genres ON games_genres.genre_id = genres.id
+    JOIN games_developers ON games.id = games_developers.game_id
+    JOIN developers ON games_developers.developer_id = developers.id
+    WHERE games.id = $1;
     `,
     [gameId],
   );
@@ -59,6 +73,42 @@ async function deleteGameById(gameId) {
   await pool.query("DELETE FROM games WHERE id = $1", [gameId]);
 }
 
+async function updateGame(
+  gameId,
+  title,
+  genreId,
+  developerId,
+  release_date,
+  rating,
+) {
+  await pool.query(
+    `
+      UPDATE games
+      SET title = $1, release_date = $2, rating = $3
+      WHERE id = $4
+    `,
+    [title, release_date, rating, gameId],
+  );
+
+  await pool.query(
+    `
+      UPDATE games_genres
+      SET genre_id = $1
+      WHERE game_id = $2
+    `,
+    [genreId, gameId],
+  );
+
+  await pool.query(
+    `
+        UPDATE games_developers
+        SET developer_id = $1
+        WHERE game_id = $2
+      `,
+    [developerId, gameId],
+  );
+}
+
 module.exports = {
   getAllGames,
   getDeveloperForGame,
@@ -66,4 +116,5 @@ module.exports = {
   addNewGame,
   getGameById,
   deleteGameById,
+  updateGame,
 };

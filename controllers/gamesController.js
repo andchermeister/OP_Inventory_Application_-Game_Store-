@@ -1,31 +1,59 @@
-const db = require("../models/gamesQueries");
+const games_db = require("../models/gamesQueries");
+const developers_db = require("../models/developersQueries");
+const genres_db = require("../models/genresQueries");
 
 async function renderGames(req, res) {
-  const games = await db.getAllGames();
+  const games = await games_db.getAllGames();
   res.render("gamesViews/games", { games });
 }
 
 async function renderNewGameForm(req, res) {
-  const genres = await db.getAllGenres();
-  const developers = await db.getAllDevelopers();
+  const genres = await genres_db.getAllGenres();
+  const developers = await developers_db.getAllDevelopers();
   res.render("gamesViews/newGameForm", { genres, developers });
 }
 
 async function addNewGame(req, res) {
   const { title, genreId, developerId, release_date, rating } = req.body;
-  await db.addNewGame(title, genreId, developerId, release_date, rating);
+  await games_db.addNewGame(title, genreId, developerId, release_date, rating);
   res.redirect("/games");
 }
 
 async function getGameById(req, res) {
   const { gameId } = req.params;
-  const game = await db.getGameById(gameId);
+  const game = await games_db.getGameById(gameId);
   res.render("gamesViews/game", { game });
 }
 
 async function deleteGameById(req, res) {
   const { gameId } = req.params;
-  await db.deleteGameById(gameId);
+  await games_db.deleteGameById(gameId);
+  res.redirect("/games");
+}
+
+async function renderEditGameForm(req, res) {
+  const { gameId } = req.params;
+
+  const game = await games_db.getGameById(gameId);
+  const genres = await genres_db.getAllGenres();
+  const developers = await developers_db.getAllDevelopers();
+
+  res.render("gamesViews/editGameForm", { game, genres, developers });
+}
+
+async function updateGame(req, res) {
+  const { gameId } = req.params;
+  const { title, genreId, developerId, release_date, rating } = req.body;
+
+  await games_db.updateGame(
+    gameId,
+    title,
+    genreId,
+    developerId,
+    release_date,
+    rating,
+  );
+
   res.redirect("/games");
 }
 
@@ -35,4 +63,6 @@ module.exports = {
   addNewGame,
   getGameById,
   deleteGameById,
+  renderEditGameForm,
+  updateGame,
 };

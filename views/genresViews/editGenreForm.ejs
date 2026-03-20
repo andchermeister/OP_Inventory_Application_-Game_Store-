@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partials/head") %>
+  <body>
+    <h1>Edit a genre:</h1>
+    <form action="/genres/<%= genre.id %>/edit" method="POST">
+      <label for="genre_name">Genre name:</label>
+      <input
+        type="text"
+        name="genre_name"
+        id="genre_name"
+        value="<%= genre.genre_name %>"
+        required
+      />
+      <button type="submit">Save</button>
+    </form>
+  </body>
+</html>

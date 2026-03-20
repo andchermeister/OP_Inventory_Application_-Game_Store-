@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../partials/head") %>
+  <body>
+    <h1>Edit a developer:</h1>
+    <form action="/developers/<%= developer.id %>/edit" method="POST">
+      <ul>
+        <li>
+          <label for="company_name">Company name:</label>
+          <input
+            type="text"
+            name="company_name"
+            id="company_name"
+            value="<%= developer.company_name %>"
+            required
+          />
+        </li>
+        <li>
+          <label for="country">Country:</label>
+          <input
+            type="text"
+            name="country"
+            ,
+            id="country"
+            value="<%= developer.country %>"
+          />
+        </li>
+        <li>
+          <label for="year_founded">Year founded:</label>
+          <input
+            type="text"
+            name="year_founded"
+            ,
+            id="year_founded"
+            value="<%= developer.year_founded %>"
+          />
+        </li>
+      </ul>
+
+      <button type="submit">Save</button>
+    </form>
+  </body>
+</html>

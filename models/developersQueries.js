@@ -26,9 +26,26 @@ async function deleteDeveloperById(developerId) {
   await pool.query("DELETE FROM developers WHERE id = $1", [developerId]);
 }
 
+async function updateDeveloper(
+  developerId,
+  company_name,
+  country,
+  year_founded,
+) {
+  await pool.query(
+    `
+      UPDATE developers
+      SET company_name = $1, country = $2, year_founded = $3
+      WHERE id = $4
+    `,
+    [company_name, country, year_founded, developerId],
+  );
+}
+
 module.exports = {
   getAllDevelopers,
   addNewDeveloper,
   getDeveloperById,
   deleteDeveloperById,
+  updateDeveloper,
 };

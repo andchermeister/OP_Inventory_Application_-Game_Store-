@@ -5,6 +5,7 @@
   <p>Release date: <%= new Date(game.release_date).toLocaleDateString() %></p>
   <p>Rating: <%= game.rating %></p>
   <a href="/games/<%= game.id %>"><button>Open</button></a>
+  <a href="/games/<%= game.id %>/edit"><button>Edit</button></a>
   <form
     action="/games/<%= game.id %>/delete"
     method="POST"

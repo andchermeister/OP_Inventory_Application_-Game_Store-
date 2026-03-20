@@ -27,10 +27,27 @@ async function deleteDeveloperById(req, res) {
   res.redirect("/developers");
 }
 
+async function renderEditDeveloperForm(req, res) {
+  const { developerId } = req.params;
+
+  const developer = await db.getDeveloperById(developerId);
+  res.render("developersViews/editDeveloperForm", { developer });
+}
+
+async function updateDeveloper(req, res) {
+  const { developerId } = req.params;
+  const { company_name, country, year_founded } = req.body;
+
+  await db.updateDeveloper(developerId, company_name, country, year_founded);
+  res.redirect("/developers");
+}
+
 module.exports = {
   renderDevelopers,
   addNewDeveloper,
   renderNewDeveloperForm,
   getDeveloperById,
   deleteDeveloperById,
+  renderEditDeveloperForm,
+  updateDeveloper,
 };

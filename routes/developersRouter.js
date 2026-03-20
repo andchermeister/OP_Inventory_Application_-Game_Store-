@@ -13,5 +13,13 @@ developersRouter.post(
   "/:developerId/delete",
   developersController.deleteDeveloperById,
 );
+developersRouter.get(
+  "/:developerId/edit",
+  developersController.renderEditDeveloperForm,
+);
+developersRouter.post(
+  "/:developerId/edit",
+  developersController.updateDeveloper,
+);
 
 module.exports = developersRouter;

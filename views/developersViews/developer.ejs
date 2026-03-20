@@ -3,6 +3,7 @@
   <p>Country: <%= developer.country %></p>
   <p>Year founded: <%= developer.year_founded %></p>
   <a href="/developers/<%= developer.id %>"><button>Open</button></a>
+  <a href="/developers/<%= developer.id %>/edit"><button>Edit</button></a>
   <form
     action="/developers/<%= developer.id %>/delete"
     method="POST"

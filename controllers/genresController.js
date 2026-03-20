@@ -27,10 +27,27 @@ async function deleteGenreById(req, res) {
   res.redirect("/genres");
 }
 
+async function renderEditGenreForm(req, res) {
+  const { genreId } = req.params;
+
+  const genre = await db.getGenreById(genreId);
+  res.render("genresViews/editGenreForm", { genre });
+}
+
+async function updateGenre(req, res) {
+  const { genreId } = req.params;
+  const { genre_name } = req.body;
+
+  await db.updateGenre(genreId, genre_name);
+  res.redirect("/genres");
+}
+
 module.exports = {
   renderGenres,
   renderNewGenreForm,
   addNewGenre,
   getGenreById,
   deleteGenreById,
+  renderEditGenreForm,
+  updateGenre,
 };

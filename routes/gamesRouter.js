@@ -7,5 +7,7 @@ gamesRouter.get("/newgame", gamesController.renderNewGameForm);
 gamesRouter.post("/newgame", gamesController.addNewGame);
 gamesRouter.get("/:gameId", gamesController.getGameById);
 gamesRouter.post("/:gameId/delete", gamesController.deleteGameById);
+gamesRouter.get("/:gameId/edit", gamesController.renderEditGameForm);
+gamesRouter.post("/:gameId/edit", gamesController.updateGame);
 
 module.exports = gamesRouter;

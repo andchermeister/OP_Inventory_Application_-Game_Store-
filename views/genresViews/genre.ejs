@@ -1,6 +1,7 @@
 <li>
   <p>Genre name: <%= genre.genre_name %></p>
   <a href="/genres/<%= genre.id %>"><button>Open</button></a>
+  <a href="/genres/<%= genre.id %>/edit"><button>Edit</button></a>
   <form
     action="/genres/<%= genre.id %>/delete"
     method="POST"
