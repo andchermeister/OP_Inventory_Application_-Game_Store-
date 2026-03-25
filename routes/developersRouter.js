@@ -7,7 +7,11 @@ developersRouter.get(
   "/newdeveloper",
   developersController.renderNewDeveloperForm,
 );
-developersRouter.post("/newdeveloper", developersController.addNewDeveloper);
+developersRouter.post(
+  "/newdeveloper",
+  developersController.validateDeveloper,
+  developersController.addNewDeveloper,
+);
 developersRouter.get("/:developerId", developersController.getDeveloperById);
 developersRouter.post(
   "/:developerId/delete",
@@ -19,6 +23,7 @@ developersRouter.get(
 );
 developersRouter.post(
   "/:developerId/edit",
+  developersController.validateDeveloper,
   developersController.updateDeveloper,
 );
 

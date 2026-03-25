@@ -3,10 +3,12 @@
   <%- include("../partials/head") %>
   <body>
     <h1>Add a new genre:</h1>
+    <%- include("../partials/errors") %>
     <form action="/genres/newgenre" method="post">
       <label for="genre_name">Genre name:</label>
       <input type="text" name="genre_name" id="genre_name" required />
       <button type="submit">Add</button>
     </form>
+    <a href="/"><button>Go back home</button></a>
   </body>
 </html>
