@@ -27,22 +27,31 @@ async function getGenreForGame() {
 }
 
 async function addNewGame(title, genreId, developerId, release_date, rating) {
-  const { rows } = await pool.query(
-    "INSERT INTO games (title, release_date, rating) VALUES ($1, $2, $3) RETURNING id",
-    [title, release_date, rating],
-  );
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    const { rows } = await client.query(
+      "INSERT INTO games (title, release_date, rating) VALUES ($1, $2, $3) RETURNING id",
+      [title, release_date, rating],
+    );
+    const gameId = rows[0].id;
 
-  const gameId = rows[0].id;
+    await client.query(
+      "INSERT INTO games_genres (game_id, genre_id) VALUES ($1, $2)",
+      [gameId, genreId],
+    );
 
-  await pool.query(
-    "INSERT INTO games_genres (game_id, genre_id) VALUES ($1, $2)",
-    [gameId, genreId],
-  );
-
-  await pool.query(
-    "INSERT INTO games_developers (game_id, developer_id) VALUES ($1, $2)",
-    [gameId, developerId],
-  );
+    await client.query(
+      "INSERT INTO games_developers (game_id, developer_id) VALUES ($1, $2)",
+      [gameId, developerId],
+    );
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 async function getGameById(gameId) {
@@ -81,32 +90,42 @@ async function updateGame(
   release_date,
   rating,
 ) {
-  await pool.query(
-    `
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    await client.query(
+      `
       UPDATE games
       SET title = $1, release_date = $2, rating = $3
       WHERE id = $4
     `,
-    [title, release_date, rating, gameId],
-  );
+      [title, release_date, rating, gameId],
+    );
 
-  await pool.query(
-    `
+    await client.query(
+      `
       UPDATE games_genres
       SET genre_id = $1
       WHERE game_id = $2
     `,
-    [genreId, gameId],
-  );
+      [genreId, gameId],
+    );
 
-  await pool.query(
-    `
+    await client.query(
+      `
         UPDATE games_developers
         SET developer_id = $1
         WHERE game_id = $2
       `,
-    [developerId, gameId],
-  );
+      [developerId, gameId],
+    );
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 module.exports = {

@@ -19,6 +19,19 @@ app.use("/games", gamesRouter);
 app.use("/developers", developersRouter);
 app.use("/genres", genresRouter);
 
+// Error handling middleware (must be last)
+app.use((err, req, res, next) => {
+  console.error("Error:", err);
+  
+  const status = err.status || 500;
+  const message = err.message || "Internal Server Error";
+  
+  res.status(status).render("error", {
+    message: status === 500 ? "Something went wrong. Please try again." : message,
+    status
+  });
+});
+
 app.listen(PORT, (err) => {
   if (err) {
     throw err;

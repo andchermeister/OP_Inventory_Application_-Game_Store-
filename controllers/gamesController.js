@@ -2,9 +2,13 @@ const games_db = require("../models/gamesQueries");
 const developers_db = require("../models/developersQueries");
 const genres_db = require("../models/genresQueries");
 
-async function renderGames(req, res) {
-  const games = await games_db.getAllGames();
-  res.render("gamesViews/games", { games });
+async function renderGames(req, res, next) {
+  try {
+    const games = await games_db.getAllGames();
+    res.render("gamesViews/games", { games });
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function renderNewGameForm(req, res) {
@@ -13,10 +17,20 @@ async function renderNewGameForm(req, res) {
   res.render("gamesViews/newGameForm", { genres, developers });
 }
 
-async function addNewGame(req, res) {
-  const { title, genreId, developerId, release_date, rating } = req.body;
-  await games_db.addNewGame(title, genreId, developerId, release_date, rating);
-  res.redirect("/games");
+async function addNewGame(req, res, next) {
+  try {
+    const { title, genreId, developerId, release_date, rating } = req.body;
+    await games_db.addNewGame(
+      title,
+      genreId,
+      developerId,
+      release_date,
+      rating,
+    );
+    res.redirect("/games");
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function getGameById(req, res) {
