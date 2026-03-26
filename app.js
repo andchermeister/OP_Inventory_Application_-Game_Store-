@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("node:path");
 const PORT = process.env.PORT || 3000;
+require("dotenv").config();
 
 const mainRouter = require("./routes/mainRouter");
 const gamesRouter = require("./routes/gamesRouter");

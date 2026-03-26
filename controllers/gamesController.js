@@ -91,11 +91,19 @@ async function getGameById(req, res) {
 
 async function deleteGameById(req, res) {
   const { gameId } = req.params;
+  const { password } = req.body;
+
+  if (password !== process.env.DELETE_PASSWORD)
+    return res
+      .status(403)
+      .render("error", { message: "Incorrect password", status: 403 });
+
   const game = await games_db.getGameById(gameId);
   if (!game)
     return res
       .status(404)
       .render("error", { message: "Game not found", status: 404 });
+
   await games_db.deleteGameById(gameId);
   res.redirect("/games");
 }

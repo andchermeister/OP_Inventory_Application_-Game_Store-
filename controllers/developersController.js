@@ -64,6 +64,11 @@ async function getDeveloperById(req, res) {
 
 async function deleteDeveloperById(req, res) {
   const { developerId } = req.params;
+  const { password } = req.body;
+  if (password !== process.env.DELETE_PASSWORD)
+    return res
+      .status(403)
+      .render("error", { message: "Incorrect password", status: 403 });
   const developer = await db.getDeveloperById(developerId);
   if (!developer)
     return res

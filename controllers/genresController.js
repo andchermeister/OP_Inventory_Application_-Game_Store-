@@ -48,6 +48,11 @@ async function getGenreById(req, res) {
 
 async function deleteGenreById(req, res) {
   const { genreId } = req.params;
+  const { password } = req.body;
+  if (password !== process.env.DELETE_PASSWORD)
+    return res
+      .status(403)
+      .render("error", { message: "Incorrect password", status: 403 });
   const genre = await db.getGenreById(genreId);
   if (!genre)
     return res
